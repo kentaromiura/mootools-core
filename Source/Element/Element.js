@@ -927,7 +927,7 @@ Element.implement({
 	},
 
 	removeListener: function(type, fn){
-		if (fn.$ref){
+		if (type == 'unload' && fn.$ref){
 			var old = fn;
 			fn = fn.$ref;
 			delete old.$ref;
