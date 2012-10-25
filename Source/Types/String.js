@@ -14,13 +14,11 @@ provides: String
 ...
 */
 
-//<1.4compat>
-String.implement('contains', function(string, separator){
-	return (separator) ? (separator + this + separator).indexOf(separator + string + separator) > -1 : String(this).indexOf(string) > -1;
-});
-//</1.4compat>
-
 String.implement({
+
+	contains: function(string, index){
+		return String(this).slice(index || 0).indexOf(string) > -1;
+	},
 
 	test: function(regex, params){
 		return ((typeOf(regex) == 'regexp') ? regex : new RegExp('' + regex, params)).test(this);
@@ -82,3 +80,11 @@ String.implement({
 	}
 
 });
+
+//<1.4compat>
+
+String.implement('contains', function(string, separator){
+	return (separator) ? (separator + this + separator).indexOf(separator + string + separator) > -1 : String(this).indexOf(string) > -1;
+});
+
+//</1.4compat>
