@@ -14,14 +14,16 @@ provides: String
 ...
 */
 
+//<1.4compat>
+String.implement('contains', function(string, separator){
+	return (separator) ? (separator + this + separator).indexOf(separator + string + separator) > -1 : String(this).indexOf(string) > -1;
+});
+//</1.4compat>
+
 String.implement({
 
 	test: function(regex, params){
 		return ((typeOf(regex) == 'regexp') ? regex : new RegExp('' + regex, params)).test(this);
-	},
-
-	contains: function(string, separator){
-		return (separator) ? (separator + this + separator).indexOf(separator + string + separator) > -1 : String(this).indexOf(string) > -1;
 	},
 
 	trim: function(){
