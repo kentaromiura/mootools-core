@@ -17,7 +17,7 @@ provides: String
 String.implement({
 
 	contains: function(string, index){
-		return (index ? String(this).slice(index) : String(this)).indexOf(string) > -1
+		return (index ? String(this).slice(index) : String(this)).indexOf(string) > -1;
 	},
 
 	test: function(regex, params){
