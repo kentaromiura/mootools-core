@@ -19,6 +19,7 @@ provides: [Browser, Window, Document]
 var document = this.document;
 var window = document.window = this;
 
+/*
 var ua = navigator.userAgent.toLowerCase(),
 	platform = navigator.platform.toLowerCase();
 
@@ -44,13 +45,13 @@ var parse = function(ua, platform){
 
 	};
 };
-
-var Browser = this.Browser = parse(ua, platform);
-
+*/
+var Browser = this.Browser = {extend: Function.prototype.extend}//parse(ua, platform);
+/*
 if (Browser.ie){
 	Browser.version = document.documentMode;
 }
-
+*/
 Browser.extend({
 	Features: {
 		xpath: !!(document.evaluate),
@@ -58,10 +59,10 @@ Browser.extend({
 		query: !!(document.querySelector),
 		json: !!(window.JSON)
 	},
-	Plugins: {},
-	parse: parse
+	Plugins: {}//,
+	//parse: parse
 });
-
+/*
 if (Browser.name == 'ie'){
 	if (Browser.version >= '11') {
 		Browser.modernie = true;
@@ -74,7 +75,7 @@ if (Browser.name == 'ie'){
 
 Browser[Browser.name + parseInt(Browser.version, 10)] = true;
 Browser.Platform[Browser.Platform.name] = true;
-
+*/
 // Request
 
 Browser.Request = (function(){
@@ -218,6 +219,7 @@ try {
 
 //<1.2compat>
 
+/*
 if (Browser.Platform.ios) Browser.Platform.ipod = true;
 
 Browser.Engine = {};
@@ -273,7 +275,7 @@ if (Browser.name == 'unknown'){
 			Browser.Engine.gecko = true;
 	}
 }
-
+*/
 this.$exec = Browser.exec;
 
 //</1.2compat>

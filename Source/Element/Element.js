@@ -875,7 +875,8 @@ Element.implement({
 		}
 
 		/*<ltIE9>*/
-		if (Browser.ie){
+		var hasCloneBug = function(){return false} //TODO: feature test this
+		if (hasCloneBug){
 			var co = clone.getElementsByTagName('object'), to = this.getElementsByTagName('object');
 			for (i = co.length; i--;) co[i].outerHTML = to[i].outerHTML;
 		}

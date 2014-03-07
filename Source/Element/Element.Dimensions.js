@@ -92,7 +92,10 @@ Element.implement({
 	},
 
 	getOffsets: function(){
-		if (this.getBoundingClientRect && !Browser.Platform.ios){
+    var getBoundWorking = function(){
+      return true // TODO: feature test this
+    }
+		if (this.getBoundingClientRect && getBoundWorking){
 			var bound = this.getBoundingClientRect(),
 				html = document.id(this.getDocument().documentElement),
 				htmlScroll = html.getScroll(),
@@ -111,7 +114,10 @@ Element.implement({
 		while (element && !isBody(element)){
 			position.x += element.offsetLeft;
 			position.y += element.offsetTop;
-
+      element = element.offsetParent;
+    }
+/*
+      /// WTF ?????
 			if (Browser.firefox){
 				if (!borderBox(element)){
 					position.x += leftBorder(element);
@@ -133,6 +139,8 @@ Element.implement({
 			position.x -= leftBorder(this);
 			position.y -= topBorder(this);
 		}
+    /// WTF
+*/
 		return position;
 	},
 
