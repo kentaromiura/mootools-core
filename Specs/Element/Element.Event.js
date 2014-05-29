@@ -359,6 +359,47 @@ describe('Element.removeEvent', function(){
 		expect(text).toBe(undefined);
 	});
 
+});
+
+describe('Element.Event scroll', function(){
+
+    it('should trigger/listen to mousewheel events in modern browsers', function (){
+
+        // this spec is made for browsers that can fire mousewheel events
+        // IE10+, Chrome 35+, FF 29+, Safari 5+, Opera 12+
+
+        if (!document.addEventListener || !window.atob) return; // IE9- 
+        var triggered;
+
+        function createFakeWheel(view){
+
+            if (typeof InstallTrigger !== 'undefined'){
+                // Firefox
+                var evt = document.createEvent("MouseEvents");
+                evt.initMouseEvent('DOMMouseScroll', true, true, window, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, null);
+            } else {
+                if ('onwheel' in document){
+                    // Chrome, PhantomJS, Safari
+                    var evt = document.createEvent("WheelEvent");
+                evt.initWebKitWheelEvent(0, 100, window, 0, 0, 0,
+                0, null, null, null, null);
+                } else {
+                    // IE10+, Safari
+                    var evt = document.createEvent("MouseEvents");
+                    evt.initEvent('mousewheel', true, true);
+                }
+            }
+            view.dispatchEvent(evt);
+        }
+
+        window.addEvent('mousewheel', function (){
+            triggered = true;
+        })
+
+        createFakeWheel(window);
+        expect(triggered).toBeTruthy();
+
+    });
 
 });
 
